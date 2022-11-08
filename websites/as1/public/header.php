@@ -1,3 +1,6 @@
+<?php
+require_once('dbconn.php');
+session_start(); ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +27,16 @@
 				<li><a class="categoryLink" href="#">Health</a></li>
 				<li><a class="categoryLink" href="#">Toys</a></li>
 				<li><a class="categoryLink" href="#">Motors</a></li>
-				<li><a class="categoryLink" href="#">More</a></li>
+				<?php 
+				// we display different authentication links for logged and non logged users
+				if(isset($_SESSION['user_id'])):
+					?>
+					<li><a class="categoryLink" href="/logout.php">Logout</a></li>
+					<?php
+					else: ?>
+					<li><a class="categoryLink" href="/login.php">Login</a></li>
+					<li><a class="categoryLink" href="/register.php">Register</a></li>
+					<?php endif; ?>
 			</ul>
 		</nav>
 		<img src="banners/1.jpg" alt="Banner" />

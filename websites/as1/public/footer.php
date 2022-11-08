@@ -4,3 +4,4 @@
 		</main>
 	</body>
 </html>
+<?php $db = null; ?>
