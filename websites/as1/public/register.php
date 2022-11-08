@@ -1,27 +1,90 @@
 <?php
-include_once('header.php');
+require_once('head.php');
+include_once('helpers.php');
+
+/** 
+ * Function to register new user
+ * @param string $name user name
+ * @param string $email user email address
+ * @param string $password user password
+ * @param mixed $db
+ * @return object
+ **/
+function register_user(string $name, string $email, string $password, $db)
+{
+    $success = false;
+    $error = [];
+
+    if( empty($name) || empty($email) || empty($password))
+    {
+        $error[] = 'You need to fill the required fields';
+    }
+
+    if(mail_exists($email, $db))
+    {
+        $error[] = 'The email address already exists';
+    }
+
+    // if error is empty we can register this user
+    if(empty($error))
+    {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO users(name, email, password) VALUES(?, ?, ?)";
+
+        $query = $db->prepare($sql);
+
+        $result = $query->execute([$name, $email, $password]);
+
+        if(!$result)
+        {
+            $error[] = 'An internal error occurred';
+        }
+        else
+        {
+            $success = true;
+        }
+    }
+
+    return ['success' => $success, 'error' => $error];
+
+}
 
 // when we submit the form
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    if( empty($_POST['name']) || empty($_POST['email']) || empty($_POST['password']))
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['email'];
+
+    $register = register_user($name, $email, $password, $db);
+
+    if(!$register['success'])
     {
-        $error = 'You need to fill the required fields';
+        $form_errors = $register['error'];
     }
+
     else
     {
-        $name = $_POST['name'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $email = $_POST['email'];
-
-        // lets check if email exists
+        header("Location: login.php");
     }
-
 }
+
+include_once('header.php');
 ?>
 
 <h1>Register</h1>
+<?php if(isset($form_errors)): ?>
+    <div style="color:red; font-weight: bold; padding: 15px;">
+    <?php 
+        foreach($form_errors as $err):
 
+            echo $err . '<br/>';
+
+        endforeach;
+    ?>
+    </div>
+<?php endif ?>
 <form action="" method="post">
     <label for="name">Full name</label>
     <input type="text" name="name" id="name" placeholder="Your full name" required="required" />
@@ -34,3 +97,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     <input type="submit" value="Register" />
 </form>
+
+<?php include_once('footer.php'); ?>
