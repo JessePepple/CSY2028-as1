@@ -72,6 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         $_SESSION['email'] = $user_data['email'];
 
         header("Location: index.php");
+        exit;
     }
 }
 include_once('header.php');
