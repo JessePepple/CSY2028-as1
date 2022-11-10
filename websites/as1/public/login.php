@@ -98,7 +98,7 @@ include_once('header.php');
     <label for="password">Password</label>
     <input type="password" name="password" placeholder="Your password" id="password" required="required" />
 
-    <input type="submit" value="Login" />
+    <input type="submit" name="submit" value="Login" />
 </form>
 
 <?php include_once('footer.php'); ?>
