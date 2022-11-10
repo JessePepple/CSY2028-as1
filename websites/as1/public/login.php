@@ -39,7 +39,7 @@ function login(string $email, string $password, $db)
 
         if(!password_verify($password, $hashed_pass))
         {
-            $errors[] = "You've provided $password a wrong password, $hashed_pass please try again";
+            $errors[] = "You've provided a wrong password, please try again";
         }
 
         else
@@ -61,14 +61,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     if(!$login['success'])
     {
         $form_errors = $login['error'];
-        print_r($login['data']);
     }
 
     else
     {
+        $user_data = $login['data'];
         // set session data
-        // $_SESSION['']
-        print_r($login['data']);
+        $_SESSION['id'] = $user_data['id'];
+        $_SESSION['is_admin'] = $user_data['is_admin'];
+        $_SESSION['email'] = $user_data['email'];
+
+        header("Location: index.php");
     }
 }
 include_once('header.php');

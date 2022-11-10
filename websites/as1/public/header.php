@@ -26,7 +26,7 @@
 				<li><a class="categoryLink" href="#">Motors</a></li>
 				<?php 
 				// we display different authentication links for logged and non logged users
-				if(isset($_SESSION['user_id'])):
+				if(isset($_SESSION['id'])):
 					?>
 					<li><a class="categoryLink" href="/logout.php">Logout</a></li>
 					<?php
