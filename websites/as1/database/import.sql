@@ -1,8 +1,7 @@
 CREATE DATABASE IF NOT EXISTS assignment1;
 
 use assignment1;
-
-CREATE TABLE IF NOT EXISTS users(id int not null auto_increment, name varchar(40) not null, email varchar(80) not null unique, password varchar(80) not null, is_admin int not null default '0', primary key(id));
+CREATE TABLE IF NOT EXISTS users(id int not null auto_increment, name varchar(40) not null, email varchar(80) not null unique, password varchar(255) not null, is_admin int not null default '0', primary key(id));
 
 -- password: 123456 
 INSERT IGNORE INTO users(id, name, email, password, is_admin)

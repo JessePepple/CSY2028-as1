@@ -8,7 +8,7 @@ include_once('helpers.php');
  * @param string $email user email address
  * @param string $password user password
  * @param mixed $db
- * @return object
+ * @return array
  **/
 function register_user(string $name, string $email, string $password, $db)
 {
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = $_POST['email'];
+    $password = $_POST['password'];
 
     $register = register_user($name, $email, $password, $db);
 
@@ -85,6 +85,7 @@ include_once('header.php');
     ?>
     </div>
 <?php endif ?>
+
 <form action="" method="post">
     <label for="name">Full name</label>
     <input type="text" name="name" id="name" placeholder="Your full name" required="required" />
