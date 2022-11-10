@@ -17,7 +17,7 @@
 
 		<nav>
 			<ul>
-				<li><a class="categoryLink" href="#">Home &amp; Garden</a></li>
+				<li><a class="categoryLink" href="/index.php">Home &amp; Garden</a></li>
 				<li><a class="categoryLink" href="#">Electronics</a></li>
 				<li><a class="categoryLink" href="#">Fashion</a></li>
 				<li><a class="categoryLink" href="#">Sport</a></li>
