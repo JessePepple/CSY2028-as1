@@ -1,3 +1,25 @@
+<?php
+
+/**
+ * Gets categories from the database
+ * @param $db The database connection
+ * @return array
+ */
+function get_categories($db)
+{
+	$sql = "SELECT * FROM category";
+	$query = $db->prepare($sql);
+	$query->execute();
+
+	$result = $query->fetchAll();
+
+	if(!$result) return [];
+
+	return $result;
+}
+
+$categories = get_categories($db);
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,13 +39,19 @@
 
 		<nav>
 			<ul>
-				<li><a class="categoryLink" href="/index.php">Home &amp; Garden</a></li>
-				<li><a class="categoryLink" href="#">Electronics</a></li>
-				<li><a class="categoryLink" href="#">Fashion</a></li>
-				<li><a class="categoryLink" href="#">Sport</a></li>
-				<li><a class="categoryLink" href="#">Health</a></li>
-				<li><a class="categoryLink" href="#">Toys</a></li>
-				<li><a class="categoryLink" href="#">Motors</a></li>
+				<li><a class="categoryLink" href="/index.php">Home</a></li>
+
+				<?php
+
+				// display categories
+				if($categories):
+					foreach($categories as $row):
+						?>
+						<li><a class="categoryLink" href="/categories.php?id=<?= $row['id'] ?>"> <?= $row['name'] ?> </a></li>
+						<?php
+					endforeach;
+				endif;
+				?>
 				<?php 
 				// we display different authentication links for logged and non logged users
 				if(isset($_SESSION['id'])):
