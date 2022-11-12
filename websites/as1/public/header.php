@@ -1,23 +1,5 @@
 <?php
 
-/**
- * Gets categories from the database
- * @param $db The database connection
- * @return array
- */
-function get_categories($db)
-{
-	$sql = "SELECT * FROM category";
-	$query = $db->prepare($sql);
-	$query->execute();
-
-	$result = $query->fetchAll();
-
-	if(!$result) return [];
-
-	return $result;
-}
-
 $categories = get_categories($db);
 ?>
 <!DOCTYPE html>

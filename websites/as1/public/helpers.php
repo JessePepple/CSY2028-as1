@@ -47,9 +47,27 @@ function get_auctions($cat, $db) : array
  */
 function get_category($cat, $db): array
 {
-    $sql = "SELECT * FROM category where id = ?";
+    $sql = "SELECT name, id FROM category where id = ?";
     $query = $db->prepare($sql);
     $query->execute([$cat]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result[0];
+}
+
+/**
+ * Gets all the categories available
+ * @param $db the database connection
+ * @return array
+ */
+function get_categories($db)
+{
+    $sql = "SELECT * FROM category";
+    $query = $db->prepare($sql);
+    $query->execute();
 
     $result = $query->fetchAll();
 

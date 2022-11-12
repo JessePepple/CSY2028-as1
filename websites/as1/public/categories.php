@@ -2,7 +2,7 @@
 require_once('head.php');
 require_once('helpers.php');
 
-$cat_id = $_GET['id'];
+$cat_id = $_GET['id'] ?? null;
 
 if(!isset($cat_id))
 {
@@ -26,6 +26,9 @@ if(!$category):
 <?php 
 else:
     ?>
+    <div>
+        <a href="/addAuction.php?cat=<?= $cat_id ?>"><button>Add New Auction</button></a>
+    </div>
     <h1>Category listing</h1>
     <ul class="productList">
     <?php
