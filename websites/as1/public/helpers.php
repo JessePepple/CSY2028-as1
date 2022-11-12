@@ -20,3 +20,40 @@ function mail_exists(string $email, $db) : bool
     return false;
    
 }
+
+/**
+ * Get all auctions in this category
+ * @param $cat Category id
+ * @param $db The database connection
+ * @return array
+ */
+function get_auctions($cat, $db) : array
+{
+    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id WHERE a.categoryId = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$cat]);
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result;
+}
+
+/**
+ * Gets a category
+ * @param $cat the category id
+ * @param $db the database connection
+ * @return array
+ */
+function get_category($cat, $db): array
+{
+    $sql = "SELECT * FROM category where id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$cat]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result;
+}
