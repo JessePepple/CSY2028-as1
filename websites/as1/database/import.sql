@@ -13,6 +13,6 @@ insert ignore into category(id, name) values('1', 'Electronics');
 insert ignore into category(id, name) values('2', 'Home and garden');
 insert ignore into category(id, name) values('3', 'Fashion');
 insert ignore into category(id, name) values('4', 'Sport');
-
+drop TABLE auction;
 CREATE TABLE if not exists auction(id int not null auto_increment, title varchar(255) not null, description text not null,
-categoryId int not null, endDate date not null, image varchar(100) not null, userId int not null, foreign key(categoryId) references category(id), foreign key(userId) references users(id), primary key(id));
+categoryId int not null, endDate date not null, image varchar(100) not null, user_id int not null, foreign key(categoryId) references category(id), foreign key(user_id) references users(id), primary key(id));

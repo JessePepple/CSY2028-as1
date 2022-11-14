@@ -29,7 +29,7 @@ function mail_exists(string $email, $db) : bool
  */
 function get_auctions($cat, $db) : array
 {
-    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id WHERE a.categoryId = ?";
+    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.user_id, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id WHERE a.categoryId = ?";
     $query = $db->prepare($sql);
     $query->execute([$cat]);
     $result = $query->fetchAll();

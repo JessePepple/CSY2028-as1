@@ -19,7 +19,7 @@ class Auctions {
      */
     public function add(array $data, int $user_id, $db)
     {
-        $sql = "INSERT INTO auction(title, description, image, categoryId, endDate, userId) VALUES(?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO auction(title, description, image, categoryId, endDate, user_id) VALUES(?, ?, ?, ?, ?, ?);";
         $query = $db->prepare($sql);
 
         $query = $query->execute([$data['title'], $data['description'], $data['image'], $data['category'], $data['end_date'], $user_id]);

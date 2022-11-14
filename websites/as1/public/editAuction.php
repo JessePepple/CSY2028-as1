@@ -62,6 +62,32 @@ class Auctions {
 
         return $file_new_name;
     }
+
+    /**
+     * Deletes an auction
+     * @param $id Auction id
+     * @param $db The db connection
+     */
+    public function delete($id, $db)
+    {
+        $sql = "DELETE FROM auction WHERE id = ?";
+        $query = $db->prepare($sql);
+
+        return $query->execute([$id]);
+    }
+}
+
+$auction_class = new Auctions();
+
+// delete this auction
+
+if(isset($_GET['delete']) && $_GET['delete'] == 'true')
+{
+    $auction_class->delete($auction_id);
+
+    header('Location: categories.php?id=1');
+
+    exit;
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -87,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     if(empty($errors))
     {
-        $auction_class = new Auctions();
+       
 
         if($_FILES['image']['size'] != 0)
         {
@@ -135,7 +161,9 @@ select, textarea, p.cap {
 }
 </style>
 <h1>Edit Auction</h1>
-
+<?php if(isset($_SESSION['id']) && ($auction['user_id'] == $_SESSION['id'] || $_SESSION['is_admin'])): ?>
+<a href="editAuction.php?id<?= $auction_id ?>&delete=true" onclick="return confirm('Are you sure you want to delete this auction?')"><button>DELETE AUCTION</button></a>
+<?php endif ?>
 <?php if(isset($form_errors)): ?>
     <div style="color:red; font-weight: bold; padding: 15px;">
     <?php 

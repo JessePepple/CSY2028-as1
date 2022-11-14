@@ -41,6 +41,11 @@ else:
                     <h2><?= $row['title'] ?></h2>
                     <h3><?= $row['name'] ?></h3>
                     <p><?= $row['description'] ?></p>
+                    <p><?php if(isset($_SESSION['id']) && ($row['user_id'] == $_SESSION['id'] || $_SESSION['is_admin'])) 
+                    {
+                        echo '<a href="/editAuction.php?id='. $row['id'] . '">Edit</a>';
+                    }
+                    ?></p>
 
                     <p class="price">Current bid: £123.45</p>
                     <a href="/auction.php?id=<?= $row['id'] ?>" class="more auctionLink">More &gt;&gt;</a>
