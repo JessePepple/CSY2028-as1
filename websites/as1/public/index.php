@@ -4,121 +4,34 @@ require_once('head.php');
 $page_title = 'Home';
 include_once('helpers.php');
 include_once('header.php');
+
+$auctions = get_auctions_top($db);
 ?>
 
 <h1>Latest Listings</h1>
 
 <ul class="productList">
+
+<?php foreach($auctions as $row): ?>
     <li>
-        <img src="product.png" alt="product name">
+        <img src="<?= $row['image'] ?>" alt="<?= $row['title'] ?>">
         <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
+            <h2><?= $row['title'] ?></h2>
+            <h3><?= $row['name'] ?></h3>
+            <p><?= $row['description'] ?></p>
+            <p><?php
+            if(isset($_SESSION['id']) && ($row['user_id'] == $_SESSION['id'])) 
+            {
+                echo '<a href="/editAuction.php?id='. $row['id'] . '">Edit</a>';
+            }
+            ?></p>
+
 
             <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
+            <a href="auction.php?id=<?= $row['id'] ?>" class="more auctionLink">More &gt;&gt;</a>
         </article>
     </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
-    <li>
-        <img src="product.png" alt="product name">
-        <article>
-            <h2>Product name</h2>
-            <h3>Product category</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales ornare purus, non laoreet dolor sagittis id. Vestibulum lobortis laoreet nibh, eu luctus purus volutpat sit amet. Proin nec iaculis nulla. Vivamus nec tempus quam, sed dapibus massa. Etiam metus nunc, cursus vitae ex nec, scelerisque dapibus eros. Donec ac diam a ipsum accumsan aliquet non quis orci. Etiam in sapien non erat dapibus rhoncus porta at lorem. Suspendisse est urna, egestas ut purus quis, facilisis porta tellus. Pellentesque luctus dolor ut quam luctus, nec porttitor risus dictum. Aliquam sed arcu vehicula, tempor velit consectetur, feugiat mauris. Sed non pellentesque quam. Integer in tempus enim.</p>
-
-            <p class="price">Current bid: £123.45</p>
-            <a href="#" class="more auctionLink">More &gt;&gt;</a>
-        </article>
-    </li>
+<?php endforeach; ?>
 
 </ul>
 
