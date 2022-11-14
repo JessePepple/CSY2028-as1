@@ -36,7 +36,7 @@ class Auctions {
         $dir = 'images/auctions/';
         $filename = $dir . basename($file['name']);
 
-        if(!getimagesize($file['tmp_name']) || $file['size'] > 5000000) 
+        if($file['size'] > 5000000 || (!empty($file['tmp_name']) && !getimagesize($file['tmp_name'])) ) 
         { return false; }
 
         $name_arr = explode('.', $filename);

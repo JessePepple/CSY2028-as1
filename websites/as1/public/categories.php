@@ -41,7 +41,7 @@ else:
                     <h2><?= $row['title'] ?></h2>
                     <h3><?= $row['name'] ?></h3>
                     <p><?= $row['description'] ?></p>
-                    <p><?php if(isset($_SESSION['id']) && ($row['user_id'] == $_SESSION['id'] || $_SESSION['is_admin'])) 
+                    <p><?php if(isset($_SESSION['id']) && ($row['user_id'] == $_SESSION['id'])) 
                     {
                         echo '<a href="/editAuction.php?id='. $row['id'] . '">Edit</a>';
                     }

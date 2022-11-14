@@ -32,6 +32,10 @@ class Auctions {
      */
     public function edit(array $data, int $auction_id, $db)
     {
+        $auction = get_auction($auction_id, $db);
+        
+        if(!isset($_SESSION['id']) || $auction['user_id'] != $_SESSION['id'])
+        return false;
         $sql = "UPDATE auction SET title = ?, description = ?, image = ?, categoryId = ?, endDate = ? WHERE id = ?;";
         $query = $db->prepare($sql);
 
@@ -49,7 +53,7 @@ class Auctions {
         $dir = 'images/auctions/';
         $filename = $dir . basename($file['name']);
 
-        if(!getimagesize($file['tmp_name']) || $file['size'] > 5000000) 
+        if($file['size'] > 5000000 || (!empty($file['tmp_name']) && !getimagesize($file['tmp_name'])) )  
         { return false; }
 
         $name_arr = explode('.', $filename);
@@ -70,6 +74,14 @@ class Auctions {
      */
     public function delete($id, $db)
     {
+        $auction = get_auction($id, $db);
+
+        if(!isset($_SESSION['id']) || $auction['user_id'] != $_SESSION['id'])
+        return false;
+
+        // delete image associated with this auction
+        unlink($auction['image']);
+        
         $sql = "DELETE FROM auction WHERE id = ?";
         $query = $db->prepare($sql);
 
@@ -83,9 +95,9 @@ $auction_class = new Auctions();
 
 if(isset($_GET['delete']) && $_GET['delete'] == 'true')
 {
-    $auction_class->delete($auction_id);
+    $auction_class->delete($auction_id, $db);
 
-    header('Location: categories.php?id=1');
+    header('Location: categories.php?cat=1');
 
     exit;
 }
@@ -161,8 +173,8 @@ select, textarea, p.cap {
 }
 </style>
 <h1>Edit Auction</h1>
-<?php if(isset($_SESSION['id']) && ($auction['user_id'] == $_SESSION['id'] || $_SESSION['is_admin'])): ?>
-<a href="editAuction.php?id<?= $auction_id ?>&delete=true" onclick="return confirm('Are you sure you want to delete this auction?')"><button>DELETE AUCTION</button></a>
+<?php if(isset($_SESSION['id']) && ($auction['user_id'] == $_SESSION['id'])): ?>
+<a href="editAuction.php?id=<?= $auction_id ?>&delete=true" onclick="return confirm('Are you sure you want to delete this auction?')"><button style="border:0;margin:10px;padding:5px">DELETE AUCTION</button></a>
 <?php endif ?>
 <?php if(isset($form_errors)): ?>
     <div style="color:red; font-weight: bold; padding: 15px;">
