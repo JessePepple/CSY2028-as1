@@ -84,7 +84,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
         $auction_data['image'] = $image ?? 'product.png';
     
-        if(!$auction_class->add($auction_data, $_SESSION['id'], $db) || !empty($errors))
+        if($image && !$auction_class->add($auction_data, $_SESSION['id'], $db) || !empty($errors))
         {
             $errors[] = 'An internal error occured';
             $form_errors = $errors;
@@ -132,10 +132,10 @@ select, textarea {
 
 <form action="" method="post" enctype="multipart/form-data">
     <label for="title">Title</label>
-    <input type="text" id="title" name="title" placeholder="Auction title here" required="required" value="<?= $_POST['title'] ?? '' ?>" />
+    <input type="text" id="title" name="title" placeholder="Auction title here" required="required" value="<?= form_value('title') ?>" />
     
     <label for="description">Description </label>
-    <textarea name="description" placeholder="Auction description here" required="required" id="description"><?= $_POST['description'] ?? '' ?></textarea>
+    <textarea name="description" placeholder="Auction description here" required="required" id="description"><?= form_value('description') ?></textarea>
     
     <label for="image">Image</label>
     <input type="file" name="image" id="image" />
@@ -147,7 +147,7 @@ select, textarea {
             foreach($categories as $row):
                 ?>
                 <option value="<?= $row['id'] ?>"
-                <?= (isset($cat_id) && $row['id'] == $cat_id) ? 'selected' : '' ?>>
+                <?= (form_value('category', $cat_id) == $row['id']) ? 'selected' : '' ?>>
                 <?= $row['name'] ?>
                 </option>
                 <?php
@@ -158,7 +158,7 @@ select, textarea {
     
     
     <label for="end_date"> Auction end date</label>
-    <input type="date" name="end_date" value="<?= $_POST['end_date'] ?? '' ?>" id="end_date" />
+    <input type="date" name="end_date" value="<?= form_value('end_date') ?>" id="end_date" />
 
     <input type="submit" value="Submit" />
 

@@ -75,3 +75,20 @@ function get_categories($db)
 
     return $result;
 }
+
+/**
+ * We use this to populate a form with values
+ * @param string $name The form name
+ * @param string $value2 Optional What value to use if the form is empty
+ * @return string
+ */
+function form_value(string $name, string $value2 = '')
+{
+    $value = $_REQUEST[$name] ?? null;
+
+    if(isset($value)) return $value;
+
+    if(isset($value2)) return $value2;
+
+    return '';
+}
