@@ -53,9 +53,9 @@ function register_user(string $name, string $email, string $password, $db)
 // when we submit the form
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
     $register = register_user($name, $email, $password, $db);
 

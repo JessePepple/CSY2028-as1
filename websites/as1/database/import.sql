@@ -15,4 +15,4 @@ insert ignore into category(id, name) values('3', 'Fashion');
 insert ignore into category(id, name) values('4', 'Sport');
 
 CREATE TABLE if not exists auction(id int not null auto_increment, title varchar(255) not null, description text not null,
-categoryId int not null, endDate date not null, image varchar(100) not null, foreign key(categoryId) references category(id), primary key(id));
+categoryId int not null, endDate date not null, image varchar(100) not null, userId int not null, foreign key(categoryId) references category(id), foreign key(userId) references users(id), primary key(id));

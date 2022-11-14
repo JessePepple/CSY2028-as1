@@ -53,8 +53,8 @@ function login(string $email, string $password, $db)
 
 if($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
     $login = login($email, $password, $db);
 
