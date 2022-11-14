@@ -40,6 +40,25 @@ function get_auctions($cat, $db) : array
 }
 
 /**
+ * Gets an auction
+ * @param $id the auction id
+ * @param $db the database connection
+ * @return array
+ */
+function get_auction($id, $db): array
+{
+    $sql = "SELECT * FROM auction where id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$id]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result[0];
+}
+
+/**
  * Gets a category
  * @param $cat the category id
  * @param $db the database connection

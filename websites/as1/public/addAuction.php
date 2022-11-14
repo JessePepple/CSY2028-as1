@@ -47,7 +47,7 @@ class Auctions {
 
         if(!move_uploaded_file($file['tmp_name'], $file_new_name)) return false;
 
-        return $filename;
+        return $file_new_name;
     }
 }
 

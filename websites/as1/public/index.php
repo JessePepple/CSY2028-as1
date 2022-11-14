@@ -2,7 +2,7 @@
 require_once('head.php');
 
 $page_title = 'Home';
-
+include_once('helpers.php');
 include_once('header.php');
 ?>
 
