@@ -28,10 +28,10 @@ $author = get_user($auction['user_id'], $db);
  */
 function create_review(array $data, $db)
 {
-    if(!isset($data['user_id']) || !isset($data['reviewer_id']) || !isset($data['review_text'])) 
+    if(!isset($data['user_id']) || !isset($data['reviewer_id']) || empty($data['review_text'])) 
     return false;
 
-    $sql = "INSERT INTO reviews(user_id, reviewer_id, review_text) VALUES(?, ?, ?)";
+    $sql = "INSERT INTO review(user_id, reviewer_id, review_text) VALUES(?, ?, ?)";
     $query = $db->prepare($sql);
     
     return $query->execute([$data['user_id'], $data['reviewer_id'], $data['review_text']]);
@@ -71,6 +71,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bid_form']) && isset($
         $success_msg = 'Your bid has been placed successfully';
     }
 
+}
+
+// when review form is submitted
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review_form']) && isset($_SESSION['id']))
+{
+    $review_data = [
+        'user_id' => $auction['user_id'],
+        'reviewer_id' => $_SESSION['id'],
+        'review_text' => $_POST['reviewtext']
+    ];
+
+    if(!create_review($review_data, $db))
+    {
+        $error_msg = 'The review text field is required';
+    }
+    else
+    {
+        $success_msg = 'Your review has been posted successfully';
+    }
 }
 include_once('header.php');
 ?>
@@ -120,9 +139,9 @@ include_once('header.php');
         </ul>
 
         <?php if(isset($_SESSION['id'])): ?>
-        <form method="post" action="" name="review_form">
+        <form method="post" action="">
             <label>Add your review</label> <textarea name="reviewtext"></textarea>
-
+            <input type="hidden" name="review_form">
             <input type="submit" name="submit" value="Add Review" />
         </form>
         <?php endif ?>

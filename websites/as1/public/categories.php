@@ -46,7 +46,7 @@ else:
                     }
                     ?></p>
 
-                    <p class="price">Current bid: £123.45</p>
+                    <p class="price">Current bid: £<?= get_highest_bid($row['id'], $db) ?></p>
                     <a href="/auction.php?id=<?= $row['id'] ?>" class="more auctionLink">More &gt;&gt;</a>
                 </article>
             </li>
