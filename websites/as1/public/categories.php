@@ -6,8 +6,7 @@ $cat_id = $_GET['id'] ?? null;
 
 if(!isset($cat_id))
 {
-    header('Location: index.php');
-    exit;
+    exit('You are missing the ID');
 }
 
 

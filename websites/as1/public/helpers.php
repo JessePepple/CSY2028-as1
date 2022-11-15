@@ -39,6 +39,9 @@ function get_auctions($cat, $db) : array
     return $result;
 }
 
+/**
+ * Get latest auctions 
+ */
 function get_auctions_top($db, $limit = 10) : array
 {
     $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.user_id, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id LIMIT $limit";
@@ -51,6 +54,23 @@ function get_auctions_top($db, $limit = 10) : array
     return $result;
 }
 
+/**
+ * Get an auction with more info
+ * @param $id auction id
+ * @param $db
+ */
+function get_auction_view($id, $db)
+{
+
+    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.user_id, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id WHERE a.id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$id]);
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result[0];
+}
 
 /**
  * Gets an auction
@@ -71,6 +91,23 @@ function get_auction($id, $db): array
     return $result[0];
 }
 
+/**
+ * get a user profile
+ * @param $user_id user id
+ * @param $db
+ */
+function get_user($user_id, $db)
+{
+    $sql = "SELECT * FROM users WHERE id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$user_id]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result[0];
+}
 /**
  * Gets a category
  * @param $cat the category id

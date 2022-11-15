@@ -10,16 +10,14 @@ if(!isset($_SESSION['id']))
 
 if(!isset($_GET['id']))
 {
-    header("Location: index.php");
-    exit;
+    exit('You are missing the ID');
 }
 $auction_id = $_GET['id'];
 $auction = get_auction($auction_id, $db);
 
 if(!$auction)
 {
-    header("Location: index.php");
-    exit;
+    exit('We couldn\'t find this auction');
 }
 
 class Auctions {
@@ -76,12 +74,14 @@ class Auctions {
     {
         $auction = get_auction($id, $db);
 
+        exit('We couldn\'t find this auction');
+        
         if(!isset($_SESSION['id']) || $auction['user_id'] != $_SESSION['id'])
         return false;
 
         // delete image associated with this auction
         unlink($auction['image']);
-        
+
         $sql = "DELETE FROM auction WHERE id = ?";
         $query = $db->prepare($sql);
 
