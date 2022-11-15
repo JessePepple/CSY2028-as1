@@ -161,3 +161,19 @@ function form_value(string $name, string $value2 = '')
 
     return '';
 }
+
+/**
+ * Returns the time remaining for an auction to run
+ * @param string $end_date The auction end date
+ */
+function end_date(string $end_date)
+{
+    $today = new DateTime();
+    $end = new DateTime($end_date);
+
+    if($today >= $end) return 'Ended';
+
+    $interval = $end->diff($today)->format('%a days %h hours %i minutes');
+
+    return $interval;
+}

@@ -33,11 +33,15 @@ include_once('header.php');
         <h3><?= $auction['name'] ?></h3>
         <p>Auction created by <a href="#"><?= $author['name'] ?></a></p>
         <p class="price">Current bid: £123.45</p>
-        <time>Time left: 8 hours 3 minutes</time>
-        <form action="#" class="bid">
+        <time>Time left: <?= end_date($auction['endDate']) ?></time>
+
+        <?php if(isset($_SESSION['id'])): ?>
+        <form action="" class="bid" method="post" name="bid_form">
             <input type="text" name="bid" placeholder="Enter bid amount" />
             <input type="submit" value="Place bid" />
         </form>
+        <?php endif ?>
+
     </section>
     <section class="description">
     <p>
@@ -57,7 +61,7 @@ include_once('header.php');
         </ul>
 
         <?php if(isset($_SESSION['id'])): ?>
-        <form method="post" action="">
+        <form method="post" action="" name="review_form">
             <label>Add your review</label> <textarea name="reviewtext"></textarea>
 
             <input type="submit" name="submit" value="Add Review" />
