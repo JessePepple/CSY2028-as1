@@ -90,7 +90,7 @@ include_once('header.php');
         <h2><?= $auction['title'] ?></h2>
         <h3><?= $auction['name'] ?></h3>
         <p>Auction created by <a href="#"><?= $author['name'] ?></a></p>
-        <p class="price">Current bid: £123.45</p>
+        <p class="price">Current bid: £<?= get_highest_bid($auction['id'], $db) ?></p>
         <time>Time left: <?= end_date($auction['endDate']) ?></time>
 
         <?php if(isset($_SESSION['id'])): ?>

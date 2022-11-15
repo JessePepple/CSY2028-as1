@@ -74,18 +74,35 @@ class Auctions {
     {
         $auction = get_auction($id, $db);
 
-        exit('We couldn\'t find this auction');
-        
+        if(!$auction) exit('We couldn\'t find this auction');
+
         if(!isset($_SESSION['id']) || $auction['user_id'] != $_SESSION['id'])
         return false;
 
         // delete image associated with this auction
         unlink($auction['image']);
 
+        // delete bids associated with this auction
+
+        $this->delete_bids($id, $db);
+
         $sql = "DELETE FROM auction WHERE id = ?";
         $query = $db->prepare($sql);
 
         return $query->execute([$id]);
+    }
+
+    /**
+     * Deletes all bids linked to this auction
+     * @param $auction_id
+     * @param $db
+     */
+    function delete_bids($auction_id, $db)
+    {
+        $sql = "DELETE FROM bids WHERE auction_id = ?";
+        $query = $db->prepare($sql);
+
+        return $query->execute([$auction_id]);
     }
 }
 
@@ -97,7 +114,7 @@ if(isset($_GET['delete']) && $_GET['delete'] == 'true')
 {
     $auction_class->delete($auction_id, $db);
 
-    header('Location: categories.php?cat=1');
+    header('Location: categories.php?id='. $auction['categoryId']);
 
     exit;
 }
@@ -147,7 +164,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else
         {
-            header("Location: categories.php?id=" . $auction_data['category'] . "");
+            header("Location: auction.php?id=" . $auction['id'] . "");
         }
     }
     else

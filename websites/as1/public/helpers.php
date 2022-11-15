@@ -177,3 +177,22 @@ function end_date(string $end_date)
 
     return $interval;
 }
+
+/**
+ * Gets the highest bid in an auction
+ * @param int $auction_id The auction id
+ * @param $db 
+ */
+function get_highest_bid(int $auction_id, $db)
+{
+    $sql = "SELECT amount FROM bids WHERE auction_id = ? ORDER BY amount DESC LIMIT 1";
+    $query = $db->prepare($sql);
+
+    $query->execute([$auction_id]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return '0.00';
+
+    return number_format($result[0]['amount'], 2);
+}
