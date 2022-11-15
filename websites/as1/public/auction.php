@@ -1,7 +1,7 @@
 <?php
 require_once('head.php');
 
-$page_title = 'Home';
+$page_title = 'Auction View';
 include_once('helpers.php');
 
 
@@ -131,12 +131,22 @@ include_once('header.php');
 
     <section class="reviews">
         <h2>Reviews of <?= $author['name'] ?> </h2>
+        <?php
+        $user_reviews = get_reviews($auction['user_id'], $db);
+        if($user_reviews): ?>
         <ul>
-            <li><strong>Ali said </strong> great ibuyer! Product as advertised and delivery was quick <em>29/09/2019</em></li>
-            <li><strong>Dave said </strong> disappointing, product was slightly damaged and arrived slowly.<em>22/07/2019</em></li>
-            <li><strong>Susan said </strong> great value but the delivery was slow <em>22/07/2019</em></li>
+            <?php
+            foreach($user_reviews as $row):
+                ?>
+                <li><strong><a href="userReviews.php?id=<?= $row['reviewer_id'] ?>"><?= $row['name'] ?></a> said </strong> <?= $row['review_text'] ?> <em><?= $row['date_posted'] ?></em></li>
+
+                <?php
+            endforeach;
+            ?>
 
         </ul>
+        <?php endif ?>
+
 
         <?php if(isset($_SESSION['id'])): ?>
         <form method="post" action="">

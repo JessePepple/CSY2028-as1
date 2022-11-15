@@ -17,7 +17,8 @@ insert ignore into category(id, name) values('4', 'Sport');
 CREATE TABLE if not exists auction(id int not null auto_increment, title varchar(255) not null, description text not null,
 categoryId int not null, endDate date not null, image varchar(100) not null, user_id int not null, foreign key(categoryId) references category(id), foreign key(user_id) references users(id), primary key(id));
 
-CREATE TABLE if not exists review(id int not null auto_increment, user_id int not null, reviewer_id int not null, review_text text not null, foreign key(user_id) references users(id), 
+CREATE TABLE if not exists review(id int not null auto_increment, user_id int not null, reviewer_id int not null, review_text text not null, date_posted date not null default now(),
+foreign key(user_id) references users(id), 
 foreign key(reviewer_id) references users(id), primary key(id));
 
 CREATE TABLE if not exists bids(id int not null auto_increment, user_id int not null, auction_id int not null, amount decimal not null,

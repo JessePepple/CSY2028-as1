@@ -1,5 +1,6 @@
 <?php
 require_once('head.php');
+require_once('helpers.php');
 
 /**
  * Logs a user into the system
@@ -75,11 +76,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
         exit;
     }
 }
+
+$page_title = "Login";
 include_once('header.php');
 
 ?>
 
 <h1>Login</h1>
+<?php if(isset($_GET['register'])): ?>
+    <div style="color:green; font-weight: bold; padding: 15px;">
+    You have successfully registered. Please login
+    </div>
+<?php endif ?>
+
 <?php if(isset($form_errors)): ?>
     <div style="color:red; font-weight: bold; padding: 15px;">
     <?php 

@@ -175,7 +175,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 }
 $categories = get_categories($db);
 $cat_id = $auction['categoryId'];
-
+$page_title = 'Edit Auction';
 include_once('header.php');
 ?>
 

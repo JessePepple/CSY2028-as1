@@ -103,6 +103,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 $categories = get_categories($db);
 $cat_id = $_GET['cat'] ?? null;
 
+$page_title = 'Add auction';
 include_once('header.php');
 ?>
 

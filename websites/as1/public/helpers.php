@@ -196,3 +196,40 @@ function get_highest_bid(int $auction_id, $db)
 
     return number_format($result[0]['amount'], 2);
 }
+
+/**
+ * Gets the reviews posted by a user
+ * @param int $user_id
+ * @param $db
+ * @return array
+ */
+function get_user_reviews($user_id, $db)
+{
+    $sql = "SELECT r.id, r.user_id, r.reviewer_id, r.review_text, r.date_posted, u.name FROM review as r INNER JOIN users as u ON r.reviewer_id = u.id WHERE r.reviewer_id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$user_id]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result;
+}
+
+/**
+ * get reviews posted to a user
+ * @param $user_id
+ * @param $db
+ */
+function get_reviews($user_id, $db)
+{
+    $sql = "SELECT r.id, r.user_id, r.reviewer_id, r.review_text, r.date_posted, u.name FROM review as r INNER JOIN users as u ON r.reviewer_id = u.id WHERE r.user_id = ?";
+    $query = $db->prepare($sql);
+    $query->execute([$user_id]);
+
+    $result = $query->fetchAll();
+
+    if(!$result) return [];
+
+    return $result;
+}

@@ -66,11 +66,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     else
     {
-        header("Location: login.php");
+        header("Location: login.php?register=true");
         exit;
     }
 }
-
+$page_title = 'Register';
 include_once('header.php');
 ?>
 
