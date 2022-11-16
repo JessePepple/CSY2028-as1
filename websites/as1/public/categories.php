@@ -25,9 +25,12 @@ if(!$category):
 <?php 
 else:
     ?>
+    <?php if(isset($_SESSION['id'])): ?>
     <div>
         <a href="/addAuction.php?cat=<?= $cat_id ?>"><button>Add New Auction</button></a>
     </div>
+    <?php endif; ?>
+    
     <h1>Category listing</h1>
     <ul class="productList">
     <?php

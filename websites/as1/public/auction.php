@@ -93,7 +93,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['review_form']) && isse
 }
 include_once('header.php');
 ?>
-
+<style>
+    .thumb{
+        max-width: 300px;
+        width: 100%;
+    }
+</style>
 <h1>Product Page</h1>
 <?php if(isset($success_msg)): ?>
     <div style="color:green; padding: 10px 20px"><?= $success_msg ?></div>
@@ -104,7 +109,7 @@ include_once('header.php');
 <?php endif ?>
 <article class="product">
 
-    <img src="<?= $auction['image'] ?>" alt="product name">
+    <img class="thumb" src="<?= $auction['image'] ?>" alt="product name">
     <section class="details">
         <h2><?= $auction['title'] ?></h2>
         <h3><?= $auction['name'] ?></h3>
