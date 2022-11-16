@@ -1,6 +1,21 @@
 <?php
 require_once('head.php');
-include_once('helpers.php');
+require_once('helpers.php');
+$page_title = 'New Category';
+
+if(!isset($_SESSION['id']))
+{
+    header("Location: login.php");
+    exit;
+}
+
+if (!$_SESSION['is_admin'])
+{
+    include_once('header.php');
+    echo('<p>You need to be an admin to view this page</p>');
+    include_once('footer.php');
+    exit;
+}
 
 /** 
  * Function to register new user
@@ -30,7 +45,7 @@ function register_user(string $name, string $email, string $password, $db)
     {
         $password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users(name, email, password) VALUES(?, ?, ?)";
+        $sql = "INSERT INTO users(name, email, password, is_admin) VALUES(?, ?, ?, '1')";
 
         $query = $db->prepare($sql);
 
@@ -66,15 +81,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     else
     {
-        header("Location: login.php?register=true");
+        header("Location: manageAdmins.php");
         exit;
     }
 }
-$page_title = 'Register';
+$page_title = 'Create Admin';
 include_once('header.php');
 ?>
 
-<h1>Register</h1>
+<h1>Create admin account</h1>
 <?php if(isset($form_errors)): ?>
     <div style="color:red; font-weight: bold; padding: 15px;">
     <?php 
@@ -89,15 +104,16 @@ include_once('header.php');
 
 <form action="" method="post">
     <label for="name">Full name</label>
-    <input type="text" name="name" id="name" placeholder="Your full name" required="required" value="<?= form_value('name') ?>" />
+    <input type="text" name="name" id="name" placeholder="Full name" required="required" value="<?= form_value('name') ?>" />
 
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="Please use a valid email" required="required" value="<?= form_value('email') ?>" />
+    <input type="email" name="email" id="email" placeholder="Email address" required="required" value="<?= form_value('email') ?>" />
 
     <label for="password">Password</label>
-    <input type="password" name="password" placeholder="Your password" id="password" required="required" />
+    <input type="password" name="password" placeholder="Password" id="password" required="required" />
 
-    <input type="submit" value="Register" />
+    <input type="submit" value="Create" />
 </form>
 
 <?php include_once('footer.php'); ?>
+    
