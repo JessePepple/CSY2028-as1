@@ -4,9 +4,10 @@
  * We check if an email address already exists in the db
  * @param string $email the email address
  * @param mixed $db the database connection
+ * @param string $current_mail This would make the function return false when we are editing a user
  * @return bool
  */
-function mail_exists(string $email, $db) : bool
+function mail_exists(string $email, $db, string $current_mail = '') : bool
 {
     $sql = "SELECT name FROM users WHERE email = ?";
     $query = $db->prepare($sql);
@@ -14,6 +15,8 @@ function mail_exists(string $email, $db) : bool
     $query->execute([$email]);
 
     $result = $query->fetchAll();
+
+    if($current_mail == $email) return false;
 
     if( count($result) > 0 ) return true;
 
