@@ -22,7 +22,7 @@ function search_auction($search, $db)
 $keyword = $_GET['search'] ?? '';
 
 $auctions = search_auction($keyword, $db);
-
+$page_title = 'Search results';
 include_once('header.php');
 
 if(!$auctions):

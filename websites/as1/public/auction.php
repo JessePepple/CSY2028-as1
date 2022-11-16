@@ -104,7 +104,7 @@ include_once('header.php');
 <?php endif ?>
 <article class="product">
 
-    <img src="product.png" alt="product name">
+    <img src="<?= $auction['image'] ?>" alt="product name">
     <section class="details">
         <h2><?= $auction['title'] ?></h2>
         <h3><?= $auction['name'] ?></h3>
