@@ -47,7 +47,7 @@ function get_auctions($cat, $db) : array
  */
 function get_auctions_top($db, $limit = 10) : array
 {
-    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.user_id, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id LIMIT $limit";
+    $sql = "SELECT a.title, a.id, a.image, a.categoryId, a.user_id, a.description, a.endDate, c.name from auction AS a INNER JOIN category AS c ON a.categoryId = c.id ORDER BY endDate LIMIT $limit";
     $query = $db->prepare($sql);
     $query->execute();
     $result = $query->fetchAll();
