@@ -18,6 +18,11 @@ if (!$_SESSION['is_admin'])
 
 include_once('header.php');
 
+if(isset($_GET['delete']) && $_GET['delete'] == 'true')
+{
+    echo '<p style="color: green; padding: 20px">Category deleted successfully</p>';
+}
+
 if(!$categories):
 ?>
     <p>No categories found</p>
