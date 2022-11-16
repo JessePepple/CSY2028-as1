@@ -13,8 +13,8 @@ $categories = get_categories($db);
 		<header>
 			<h1><span class="i">i</span><span class="b">b</span><span class="u">u</span><span class="y">y</span></h1>
 
-			<form action="#">
-				<input type="text" name="search" placeholder="Search for anything" />
+			<form action="search.php">
+				<input type="text" name="search" placeholder="Search for anything" value="<?= form_value('search') ?>" />
 				<input type="submit" name="submit" value="Search" />
 			</form>
 		</header>
