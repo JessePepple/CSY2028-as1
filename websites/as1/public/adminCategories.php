@@ -24,6 +24,7 @@ if(!$categories):
 <?php else: ?>
 
     <h1>Category listing</h1>
+    <a href="addCategory.php"><button style="border:0;margin:10px;padding:5px">ADD NEW CATEGORY</button></a>
     <ul class="productList">
     <?php
     foreach($categories as $row):

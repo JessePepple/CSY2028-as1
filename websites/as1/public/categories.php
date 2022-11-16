@@ -27,10 +27,10 @@ else:
     ?>
     <?php if(isset($_SESSION['id'])): ?>
     <div>
-        <a href="/addAuction.php?cat=<?= $cat_id ?>"><button>Add New Auction</button></a>
+        <a href="/addAuction.php?cat=<?= $cat_id ?>"><button style="border:0;margin:10px;padding:5px">Add New Auction</button></a>
     </div>
     <?php endif; ?>
-    
+
     <h1>Category listing</h1>
     <ul class="productList">
     <?php
