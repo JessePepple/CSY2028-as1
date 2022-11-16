@@ -35,7 +35,7 @@ if(!$categories):
                 <a href="categories.php?id=<?= $row['id'] ?>"><h2><?= $row['name'] ?></h2></a>
                 <p>
                     <a href="/editCategory.php?id=<?= $row['id'] ?>">Edit</a> &nbsp; &nbsp;
-                    <a href="/editCategory.php?id=<?= $row['id'] ?>&delete=true" style="color:red" onclick="return confirm('Are you sure you want to delete ?')">Delete</a>
+                    <a href="/deleteCategory.php?id=<?= $row['id'] ?>" style="color:red" onclick="return confirm('Are you sure you want to delete ?')">Delete</a>
                 </p>
             </article>
         </li>
