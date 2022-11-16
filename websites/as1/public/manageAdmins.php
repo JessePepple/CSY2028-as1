@@ -37,7 +37,21 @@ include_once('header.php');
 
 if(isset($_GET['delete']) && $_GET['delete'] == 'true')
 {
-    echo '<p style="color: green; padding: 20px">Category deleted successfully</p>';
+    echo '<p style="color: green; padding: 20px">User deleted successfully</p>';
+}
+if(isset($_GET['delete']) && $_GET['delete'] == 'false')
+{
+    echo '<p style="color: red; padding: 20px">An error ocurred, unable to delete user</p>';
+}
+
+if(isset($_GET['edit']) && $_GET['edit'] == 'true')
+{
+    echo '<p style="color: green; padding: 20px">User updated successfully</p>';
+}
+
+if(isset($_GET['create']) && $_GET['create'] == 'true')
+{
+    echo '<p style="color: green; padding: 20px">User created successfully</p>';
 }
 
 if(!$admin_users):

@@ -236,3 +236,17 @@ function get_reviews($user_id, $db)
 
     return $result;
 }
+
+// we want to make sure a user exists to be logged in our system
+
+if(isset($_SESSION['id']))
+{
+    $this_user = get_user($_SESSION['id'], $db);
+    if(!$this_user)
+    {
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+}

@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
 
     else
     {
-        header("Location: manageAdmins.php");
+        header("Location: manageAdmins.php?create=true");
         exit;
     }
 }
