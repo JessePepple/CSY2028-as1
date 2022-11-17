@@ -7,6 +7,27 @@ $categories = get_categories($db);
 	<head>
 		<title><?= $page_title ?? 'ibuy Auctions' ?></title>
 		<link rel="stylesheet" href="ibuy.css" />
+		<style>
+			.dropdown {position: relative;}
+			.dropdown ul {
+				list-style: none;
+				position: absolute;
+				left: 0;
+				top: 80%;
+				background: #fff;
+				box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+				width: 100% !important;
+				display: none;
+			}
+			.dropdown ul li a{
+				font-size: 1em !important;
+			}
+			.dropdown:hover ul {
+				display: block;
+			}
+
+			
+		</style>
 	</head>
 
 	<body>
@@ -33,7 +54,20 @@ $categories = get_categories($db);
 					endforeach;
 				endif;
 				?>
-					<li><a class="categoryLink sub" href="javascript:void(0)">More</a></li>
+					<li class="dropdown"><a class="categoryLink" href="javascript:void(0)">More</a>
+					<ul class="drop">
+						<?php if(is_admin()): ?>
+							<li><a href="/adminCategories.php" class="leave">Manage Categories</a></li>
+							<li><a href="/manageAdmins.php" class="leave">Manage Admins</a></li>
+						<?php endif ?>
+						<?php if(!is_logged()): ?>
+						<li><a class="leave" href="/login.php">Login</a></li>
+						<li><a class="leave" href="/register.php">Register</a></li>
+						<?php else: ?>
+							<li><a class="leave" href="/logout.php">Logout</a></li>
+						<?php endif ?>
+					</ul>
+				</li>
 			</ul>
 		</nav>
 		<img src="banners/1.jpg" alt="Banner" />

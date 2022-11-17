@@ -250,3 +250,25 @@ if(isset($_SESSION['id']))
         exit;
     }
 }
+
+/**
+ * Checks if a user is logged in
+ * @return bool
+ */
+function is_logged() : bool
+{
+    if(!isset($_SESSION['id'])) return false;
+
+    return true;
+}
+
+/**
+ * Checks if a user is admin
+ * @return bool
+ */
+function is_admin() : bool
+{
+    if(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1) return true;
+
+    return false;
+}

@@ -70,7 +70,7 @@ header .y {
 body > nav {
 	border-bottom: 1px solid #ddd;
 }
-body > nav ul li:last-child a:after {content: 'ˬ'; position: absolute;}
+body > nav ul li:last-child a:not(.leave):after {content: 'ˬ'; position: absolute;}
 
 body > nav ul {
 	display: flex;
