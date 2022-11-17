@@ -21,7 +21,6 @@ $categories = get_categories($db);
 
 		<nav>
 			<ul>
-				<li><a class="categoryLink" href="/index.php">Home</a></li>
 
 				<?php
 
@@ -34,16 +33,7 @@ $categories = get_categories($db);
 					endforeach;
 				endif;
 				?>
-				<?php 
-				// we display different authentication links for logged and non logged users
-				if(isset($_SESSION['id'])):
-					?>
-					<li><a class="categoryLink" href="/logout.php">Logout</a></li>
-					<?php
-					else: ?>
-					<li><a class="categoryLink" href="/login.php">Login</a></li>
-					<li><a class="categoryLink" href="/register.php">Register</a></li>
-					<?php endif; ?>
+					<li><a class="categoryLink sub" href="javascript:void(0)">More</a></li>
 			</ul>
 		</nav>
 		<img src="banners/1.jpg" alt="Banner" />
